@@ -5,8 +5,7 @@ import os
 def myFunction(x):
         return -0.5*x**2 + 2.5*x + 4.5  # Example: a quadratic function
 
-def biseccion(repeticiones: int):
-	global xr, xl, xu
+def biseccion(xl: int, xu: int, repeticiones: int):
 	x = 0
 	os.system('cls')
 	print("--------------------------------------------------------------------------------------------------")
@@ -29,10 +28,7 @@ def biseccion(repeticiones: int):
 			xu = xr
 	print("--------------------------------------------------------------------------------------------------")
 
-xl = 5
-xu = 10
-
-biseccion(5)
+biseccion(5, 10, 5)
 
 #x_values = np.linspace(-5, 5, 100) # 100 points between -5 and 5
 
