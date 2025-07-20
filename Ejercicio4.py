@@ -3,20 +3,21 @@ import matplotlib.pyplot as plt
 import os
 
 def myFunction(x):
-        return -0.5*x**2 + 2.5*x + 4.5  # Example: a quadratic function
+        return -2.75*x**3 + 18*x**2 - 21*x - 12   
 
 def biseccion(xl: int, xu: int, repeticiones: int):
 	x = 0
-	global xrArray, yrArray
 	os.system('cls')
 	print("--------------------------------------------------------------------------------------------------")
 	while x < repeticiones:
 		xr = (xl + xu) / 2
-		xrArray.insert(x, xr)
 		funcionXr = myFunction(xr)
-		yrArray.insert(x, funcionXr)
 		funcionXl = myFunction(xl)
 		functionXu = myFunction(xu)
+		if(x > 0):
+			errorPorcentual = abs(((xr - xrVieja) / xr ) * 100)
+			print("Error Porcentual : " + str(errorPorcentual) + " %")
+		xrVieja = xr
 		x += 1
 		print(str(x))
 		print("	XL:    " + str(xl) + " / " + str(funcionXl))
@@ -31,25 +32,6 @@ def biseccion(xl: int, xu: int, repeticiones: int):
 			xu = xr
 	print("--------------------------------------------------------------------------------------------------")
 
-xrArray = []
-yrArray = []
-
-biseccion(5, 10, 200)
-t_continuo = np.linspace(5, 10, 1000)
-plt.scatter(xrArray, yrArray, color='black', label='Datos observados')
-plt.xlabel('x')
-plt.ylabel('y')
-plt.legend()
-plt.grid()
-plt.show()
 
 
-#x_values = np.linspace(-5, 5, 100) # 100 points between -5 and 5
-
-#y_values = myFunction(x_values)
-
-#plt.plot(x_values, y_values)
-#plt.xlabel("x")
-#plt.ylabel("f(x)")
-#plt.title("Graph of f(x) = x^2 + 2x - 1")
-#plt.show()
+biseccion(0.5, 2, 10)
