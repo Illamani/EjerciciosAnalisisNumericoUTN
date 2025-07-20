@@ -5,18 +5,19 @@ import os
 def myFunction(x):
         return -0.5*x**2 + 2.5*x + 4.5  # Example: a quadratic function
 
-def biseccion(xl: int, xu: int, repeticiones: int):
+def metodosCerrados(xl: int, xu: int, repeticiones: int):
 	x = 0
 	global xrArray, yrArray
 	os.system('cls')
 	print("--------------------------------------------------------------------------------------------------")
 	while x < repeticiones:
-		xr = (xl + xu) / 2
-		xrArray.insert(x, xr)
-		funcionXr = myFunction(xr)
-		yrArray.insert(x, funcionXr)
 		funcionXl = myFunction(xl)
 		functionXu = myFunction(xu)
+		#xr = (xl + xu) / 2 #Metodo de biseccion
+		xr = xu - ((functionXu)*(xl-xu))/(funcionXl-functionXu) #Metodo de falsa posicion
+		funcionXr = myFunction(xr)
+		xrArray.insert(x, xr)
+		yrArray.insert(x, funcionXr)
 		x += 1
 		print(str(x))
 		print("	XL:    " + str(xl) + " / " + str(funcionXl))
@@ -34,9 +35,10 @@ def biseccion(xl: int, xu: int, repeticiones: int):
 xrArray = []
 yrArray = []
 
-biseccion(5, 10, 200)
-t_continuo = np.linspace(5, 10, 1000)
+metodosCerrados(5, 10, 200)
+t_continuo = np.linspace(2.5, 12.5, 1000)
 plt.scatter(xrArray, yrArray, color='black', label='Datos observados')
+plt.plot(t_continuo, myFunction(t_continuo), 'b-', label='Sinusoide ajustada')
 plt.xlabel('x')
 plt.ylabel('y')
 plt.legend()

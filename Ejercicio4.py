@@ -5,19 +5,19 @@ import os
 def myFunction(x):
         return -2.75*x**3 + 18*x**2 - 21*x - 12   
 
-def biseccion(xl: int, xu: int, repeticiones: int):
+def metodosCerrados(xl: int, xu: int, repeticiones: int):
 	x = 0
+	global xrArray, yrArray
 	os.system('cls')
 	print("--------------------------------------------------------------------------------------------------")
 	while x < repeticiones:
-		xr = (xl + xu) / 2
-		funcionXr = myFunction(xr)
 		funcionXl = myFunction(xl)
 		functionXu = myFunction(xu)
-		if(x > 0):
-			errorPorcentual = abs(((xr - xrVieja) / xr ) * 100)
-			print("Error Porcentual : " + str(errorPorcentual) + " %")
-		xrVieja = xr
+		#xr = (xl + xu) / 2 #Metodo de biseccion
+		xr = xu - ((functionXu)*(xl-xu))/(funcionXl-functionXu) #Metodo de falsa posicion
+		funcionXr = myFunction(xr)
+		xrArray.insert(x, xr)
+		yrArray.insert(x, funcionXr)
 		x += 1
 		print(str(x))
 		print("	XL:    " + str(xl) + " / " + str(funcionXl))
@@ -32,6 +32,15 @@ def biseccion(xl: int, xu: int, repeticiones: int):
 			xu = xr
 	print("--------------------------------------------------------------------------------------------------")
 
+xrArray = []
+yrArray = []
 
-
-biseccion(0.5, 2, 10)
+metodosCerrados(0, 1, 5)
+t_continuo = np.linspace(-0.5, 1.25, 1000)
+plt.scatter(xrArray, yrArray, color='black', label='Datos observados')
+plt.plot(t_continuo, myFunction(t_continuo), 'b-', label='Sinusoide ajustada')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.legend()
+plt.grid()
+plt.show()
